@@ -8,12 +8,23 @@
   @if (tasksService.tasks().length === 0) {
     <p>Поки порожньо</p>
   } @else {
+    <p>Залишилося завдань: {{ tasksService.remainingCount() }}</p>
+
     <ul>
       @for (task of tasksService.tasks(); track task.id) {
-        <li>{{ task.title }}</li>
-        <button type="button" (click)="tasksService.removeTask(task.id)">
-          Вилучити
-        </button>
+        <li>
+          <label>
+            <input
+              type="checkbox"
+              [checked]="task.done"
+              (change)="tasksService.toggleTask(task.id)"
+            />
+            {{ task.title }}
+          </label>
+          <button type="button" (click)="tasksService.removeTask(task.id)">
+            Вилучити
+          </button>
+        </li>
       }
     </ul>
   }
