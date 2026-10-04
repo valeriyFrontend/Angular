@@ -2,10 +2,12 @@ import { Component, inject } from "@angular/core";
 import { TasksService } from "./tasks.service";
 import { FormControl, ReactiveFormsModule } from "@angular/forms";
 import { OnInit } from "@angular/core";
+import { TruncatePipe } from "../shared/truncate.pipe";
+import { TitleCasePipe } from "@angular/common";
 
 @Component({
   selector: "app-tasks",
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, TitleCasePipe, TruncatePipe],
   templateUrl: "./tasks.component.html",
   styleUrl: "./tasks.component.scss",
 })

@@ -27,7 +27,7 @@
               [checked]="task.completed"
               (change)="tasksService.toggleTask(task.id)"
             />
-            {{ task.title }}
+            {{ task.title | truncate: 50 | titlecase }}
           </label>
           <button type="button" (click)="tasksService.removeTask(task.id)">
             Вилучити
