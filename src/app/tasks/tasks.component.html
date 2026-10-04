@@ -5,6 +5,14 @@
     <button type="submit">Додати</button>
   </form>
 
+  @if (tasksService.loading()) {
+    <p>Завантаження...</p>
+  }
+
+  @if (tasksService.error(); as message) {
+    <p>{{ message }}</p>
+  }
+
   @if (tasksService.tasks().length === 0) {
     <p>Поки порожньо</p>
   } @else {
@@ -12,11 +20,11 @@
 
     <ul>
       @for (task of tasksService.tasks(); track task.id) {
-        <li>
+        <li [class.completed]="task.completed">
           <label>
             <input
               type="checkbox"
-              [checked]="task.done"
+              [checked]="task.completed"
               (change)="tasksService.toggleTask(task.id)"
             />
             {{ task.title }}
