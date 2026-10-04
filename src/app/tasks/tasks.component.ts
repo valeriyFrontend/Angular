@@ -1,15 +1,19 @@
-import { Component, signal } from "@angular/core";
+import { Component, inject } from "@angular/core";
+import { TasksService } from "./tasks.service";
+import { FormControl, ReactiveFormsModule } from "@angular/forms";
 
 @Component({
   selector: "app-tasks",
-  imports: [],
+  imports: [ReactiveFormsModule],
   templateUrl: "./tasks.component.html",
   styleUrl: "./tasks.component.scss",
 })
 export class TasksComponent {
-  tasks = signal<string[]>(["Вивчити signal", "Вивчити @for"]);
+  readonly tasksService = inject(TasksService);
+  readonly newTask = new FormControl("", { nonNullable: true });
 
   addTask(): void {
-    this.tasks.update((list) => [...list, `Задача ${list.length + 1}`]);
+    this.tasksService.addTask(this.newTask.value);
+    this.newTask.setValue("");
   }
 }

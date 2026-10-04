@@ -1,13 +1,19 @@
 <section>
   <h2>Завдання</h2>
-  <button type="button" (click)="addTask()">Додати завдання</button>
+  <form (submit)="$event.preventDefault(); addTask()">
+    <input type="text" [formControl]="newTask" placeholder="Нова задача" />
+    <button type="submit">Додати</button>
+  </form>
 
-  @if (tasks().length === 0) {
+  @if (tasksService.tasks().length === 0) {
     <p>Поки порожньо</p>
   } @else {
     <ul>
-      @for (task of tasks(); track task) {
-        <li>{{ task }}</li>
+      @for (task of tasksService.tasks(); track task.id) {
+        <li>{{ task.title }}</li>
+        <button type="button" (click)="tasksService.removeTask(task.id)">
+          Вилучити
+        </button>
       }
     </ul>
   }

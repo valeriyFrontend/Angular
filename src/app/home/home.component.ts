@@ -1,13 +1,17 @@
-import { Component, signal } from "@angular/core";
+import { Component, inject, signal } from "@angular/core";
+import { TasksService } from "../tasks/tasks.service";
 import { HelloComponent } from "../hello/hello.component";
+import { ReactiveFormsModule } from "@angular/forms";
 
 @Component({
   selector: "app-home",
-  imports: [HelloComponent],
+  imports: [HelloComponent, ReactiveFormsModule],
   templateUrl: "./home.component.html",
   styleUrl: "./home.component.scss",
 })
 export class HomeComponent {
+  readonly tasksService = inject(TasksService);
+
   userName = "Валерію";
 
   count = signal(0);
